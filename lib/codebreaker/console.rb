@@ -1,12 +1,14 @@
 require_relative "game"
-require_relative "results"
+require_relative "result"
+require_relative "user"
 require "pry"
 
 module Codebreaker
   class Console
+
     def initialize
       @game = Game.new
-      # @name = name
+      @result = Result.new
     end
 
     def start
@@ -49,7 +51,6 @@ module Codebreaker
           puts "You have to use only numbers in range 1-6 to break the code."
         end
       end
-      # afterparty if @game.game_status != ''
     end
 
     def afterparty
@@ -59,12 +60,9 @@ module Codebreaker
         decision = gets.chomp
         begin
           if decision == 'yes'
-            puts "Please, enter your name:"
-            name = gets.chomp
-            @game.user = name
-            @game.has_hint ? Result.save_results(name, @game.attempt, "no") : Result.save_results(name, @game.attempt, "yes")
+            puts "Please, enter your name:"; name = gets.chomp
             puts "#{name}, you guessed secret code in #{@game.attempt} attempts!"
-            Result.read_results
+            @result.load_results; @result.save_results(User.new(name: name, attempt: @game.attempt))
             restart
           elsif decision == 'no'
             restart

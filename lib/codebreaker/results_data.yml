@@ -1,0 +1,10 @@
+---
+- !ruby/object:Codebreaker::User
+  name: bns
+  attempt: 1
+- !ruby/object:Codebreaker::User
+  name: Al
+  attempt: 1
+- !ruby/object:Codebreaker::User
+  name: Bnd
+  attempt: 1
