@@ -37,12 +37,13 @@ module Codebreaker
       @result = result.chars.sort.join
     end
 
-    def defining_status
+    def define_status
       if @result == '++++' && @attempt <= @max_attempts
         @game_status = 'win'
       elsif @result != '++++' && @attempt == @max_attempts
         @game_status = 'loose'
       end
+      @game_status
     end
 
     def hint

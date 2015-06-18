@@ -40,7 +40,7 @@ module Codebreaker
           elsif input[/^[1-6]{4}/]
             @game.check(input)
             puts @game.result
-            afterparty if @game.game_status != ''
+            afterparty if @game.define_status != ''
           elsif input.length < 4
             raise ArgumentError
           elsif !input[/^[1-6]{4}/]
@@ -55,7 +55,7 @@ module Codebreaker
     end
 
     def afterparty
-      if @game.game_status == 'win'
+      if @game.define_status == 'win'
         puts "You win"
         puts "Do you want to save your score? If yes - print 'yes', if no - 'no'."
         decision = gets.chomp
