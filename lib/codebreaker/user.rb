@@ -1,5 +1,3 @@
-require_relative "result"
-
 module Codebreaker
   class User
     attr_accessor :name, :attempt

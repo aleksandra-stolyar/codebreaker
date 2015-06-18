@@ -1,9 +1,7 @@
-require "pry"
-require "yaml"
 module Codebreaker
   class Game
     attr_reader :secret_code
-    attr_accessor :attempt, :max_attempts, :has_hint, :user, :user_results, :game_status
+    attr_accessor :attempt, :max_attempts, :has_hint, :user, :user_results, :game_status, :result
 
     MAX_ATTEMPTS = 10
 
@@ -13,10 +11,10 @@ module Codebreaker
       @max_attempts = Game::MAX_ATTEMPTS
       @has_hint = true
       @game_status = ''
+      @result = ''
     end
 
     def check(user_code)
-      result = ''
       @attempt += 1
       secret_code_copy = secret_code.dup
       user_code = user_code.split("").map { |s| s.to_i }
@@ -36,21 +34,19 @@ module Codebreaker
           secret_code_copy.slice!(secret_code_copy.index(item))
         end
       end
-      result = result.chars.sort.join
-      puts "#{result}"
+      @result = result.chars.sort.join
+    end
 
-      if result == '++++' && @attempt <= @max_attempts
+    def defining_status
+      if @result == '++++' && @attempt <= @max_attempts
         @game_status = 'win'
-      elsif result != '++++' && @attempt == @max_attempts
+      elsif @result != '++++' && @attempt == @max_attempts
         @game_status = 'loose'
       end
-
     end
 
     def hint
       if @has_hint
-        secret_code_copy = secret_code.dup
-
         hint = []
         index = Random.rand(0..3)
         secret_code.each_with_index do |n, i|
@@ -64,8 +60,7 @@ module Codebreaker
       else
         puts "Your hint is already used"
       end
-
-      puts "#{hint.join}"
+      hint.join  
     end
 
   end

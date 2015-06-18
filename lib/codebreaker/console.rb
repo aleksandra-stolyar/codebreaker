@@ -39,6 +39,7 @@ module Codebreaker
              puts "#{@game.secret_code}" 
           elsif input[/^[1-6]{4}/]
             @game.check(input)
+            puts @game.result
             afterparty if @game.game_status != ''
           elsif input.length < 4
             raise ArgumentError

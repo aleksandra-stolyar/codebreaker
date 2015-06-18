@@ -3,22 +3,21 @@ require_relative '../spec_helper'
 module Codebreaker
   describe Game do
     subject(:game) {Game.new}
-    # before {game.generate_code}
 
-    # context "#generate_code" do
-    #   it "has secret code" do
-    #     expect(game.instance_variable_get(:@secret_code)).not_to be_empty
-    #   end
+    context "#initialize" do
+      it "has secret code" do
+        expect(game.instance_variable_get(:@secret_code)).not_to be_empty
+      end
 
-    #   it "has 4 items in secret code" do
-    #     expect(game.secret_code.length).to be(4)
-    #   end
+      it "has 4 items in secret code" do
+        expect(game.secret_code.length).to be(4)
+      end
 
-    #   it "includes numbers from 1 to 6 in secret code" do
-    #     expect(game.secret_code.join).to match(/^[1-6]{4}/) 
-    #   end
+      it "includes numbers from 1 to 6 in secret code" do
+        expect(game.secret_code.join).to match(/^[1-6]{4}/) 
+      end
 
-    # end  
+    end  
 
     context "#check" do
       context "when 1234" do
@@ -82,12 +81,17 @@ module Codebreaker
         end
       end
 
-      it "gives hint"
+      context "#hint" do
+        before {game.instance_variable_set(:@secret_code, [5, 3, 2, 4])}
+        it "shows only one number from code" do
+          allow(game).to receive(:rand).and_return(3)
+          expect(game.hint).to eq("***4")
+        end
 
-      it "saves history"
-
-
-      it "proposes to start a new game"
+        it "changes availability of hint from true to false" do
+          expect {game.hint}.to change{ game.has_hint }.to(false)
+        end
+      end
 
     end
   end
