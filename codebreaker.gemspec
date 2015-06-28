@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Codebreaker::VERSION
   spec.authors       = ["Aleksandra"]
   spec.email         = ["aleksandra.stolyar@gmail.com"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
+  spec.summary       = %q{Codebreaker game.}
+  spec.description   = %q{Game with ability of using console interface.}
   spec.homepage      = ""
   spec.license       = "MIT"
 
