@@ -1,7 +1,7 @@
 module Codebreaker
   class Game
     attr_reader :secret_code
-    attr_accessor :attempt, :max_attempts, :has_hint, :user, :user_results, :game_status, :result
+    attr_accessor :attempt, :max_attempts, :has_hint, :game_status, :result
 
     MAX_ATTEMPTS = 10
 
