@@ -46,6 +46,22 @@ module Codebreaker
       @game_status
     end
 
+    def all_results
+      if @game_status != ''
+        @results_collection = {
+          step_result: @result,
+          attempts: @attempt,
+          status: @game_status
+        }
+      else
+        @results_collection = {
+          step_result: @result,
+          attempts: @attempt
+        }
+      end
+      @results_collection     
+    end
+
     def hint
       if @has_hint
         hint = []
