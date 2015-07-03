@@ -46,8 +46,8 @@ module Codebreaker
       @game_status
     end
 
-    def all_results(user_code)
-      check(user_code)
+    def all_results(input)
+      check(input)
       define_status
       if @game_status != ''
         @results_collection = {
