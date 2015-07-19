@@ -1,31 +1,30 @@
 require 'yaml'
-require_relative "user"
 
 module Codebreaker
-  class Result < User
+  class Result
 
-    RESULTS_DATA = "results_data.yml"
-    attr_accessor :user_result
+    RESULTS_DATA = "./results_data.yml"
+    attr_accessor :results
 
     def initialize
-      @user_result = []
+      @results = YAML::load(File.read(RESULTS_DATA)) || []
+
+      rescue Exception => e
+        puts "No such file to save data" 
+        @results = []
     end
     
-    def save_results(user)
-      @user_result.push(user)
-      return "No such file" unless File.exist?(RESULTS_DATA)
+    def save!
       File.open(RESULTS_DATA, "w") do |f|
-        f.write YAML.dump(@user_result)
+        f.write YAML.dump(@results)
       end
     end
 
-    def load_results
-      return "No such file" unless File.exist?(RESULTS_DATA)
-      file = YAML::load(File.read(RESULTS_DATA))
-      file.each do |o|
-        o = User.new(name: o.name, attempt: o.attempt)
-        @user_result.push(o)
-      end
+    def add(user_name, attempts)
+      @results << {
+        name: user_name,
+        attempts: attempts
+      }
     end
 
   end

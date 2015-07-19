@@ -10,7 +10,7 @@ module Codebreaker
       @attempt = 0
       @max_attempts = Game::MAX_ATTEMPTS
       @has_hint = true
-      @game_status = ''
+      @game_status = 'inprogress'
       @result = ''
     end
 
@@ -19,10 +19,11 @@ module Codebreaker
       secret_code_copy = secret_code.dup
       user_code = user_code.split("").map { |s| s.to_i }
       user_code_copy = user_code.dup
+      tmp_result = ''
 
       user_code.each_with_index do |uci, uii| #uci - user code item, uii - user item index
         if uci == secret_code[uii] 
-          result << '+' 
+          tmp_result << '+' 
           secret_code_copy.slice!(secret_code_copy.index(uci))
           user_code_copy.slice!(uci)
         end
@@ -30,11 +31,11 @@ module Codebreaker
 
       user_code_copy.each do |item|
         if secret_code_copy.include?(item)
-          result << '-'
+          tmp_result << '-'
           secret_code_copy.slice!(secret_code_copy.index(item))
         end
       end
-      @result = result.chars.sort.join
+      @result = tmp_result.chars.sort.join
     end
 
     def define_status
@@ -49,19 +50,12 @@ module Codebreaker
     def all_results(input)
       check(input)
       define_status
-      if @game_status != ''
-        @results_collection = {
-          step_result: @result,
-          attempts: @attempt,
-          status: @game_status
-        }
-      else
-        @results_collection = {
-          step_result: @result,
-          attempts: @attempt
-        }
-      end
-      @results_collection     
+      {
+        input: input,
+        step_result: @result,
+        attempts: @attempt,
+        status: @game_status
+      }
     end
 
     def hint
@@ -79,7 +73,9 @@ module Codebreaker
       else
         puts "Your hint is already used"
       end
-      hint.join  
+      {
+        hint: hint.join
+      }
     end
 
   end
