@@ -75,6 +75,7 @@ module Codebreaker
       end
       {
         hint: hint.join
+        # secret_code: @secret_code /development mode, include in js response
       }
     end
 
