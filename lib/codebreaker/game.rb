@@ -1,3 +1,4 @@
+require 'pry'
 module Codebreaker
   class Game
     attr_reader :secret_code
@@ -25,10 +26,11 @@ module Codebreaker
         if uci == secret_code[uii] 
           tmp_result << '+' 
           secret_code_copy.slice!(secret_code_copy.index(uci))
-          user_code_copy.slice!(uci)
+          user_code_copy.slice!(uii)
         end
       end
-
+      puts user_code_copy.inspect
+      puts secret_code_copy.inspect
       user_code_copy.each do |item|
         if secret_code_copy.include?(item)
           tmp_result << '-'

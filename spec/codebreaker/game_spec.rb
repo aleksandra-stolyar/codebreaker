@@ -86,6 +86,9 @@ module Codebreaker
         it "returns +" do
           expect(game.check("3333")).to eq("+")
         end
+        it "returns +" do
+          expect(game.check("4333")).to eq("++")
+        end
       end
 
       context "#hint" do
