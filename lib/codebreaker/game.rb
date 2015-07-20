@@ -25,12 +25,14 @@ module Codebreaker
       user_code.each_with_index do |uci, uii| #uci - user code item, uii - user item index
         if uci == secret_code[uii] 
           tmp_result << '+' 
-          secret_code_copy.slice!(secret_code_copy.index(uci))
-          user_code_copy.slice!(uii)
+          secret_code_copy[uii] = nil
+          user_code_copy[uii] = nil
         end
       end
-      puts user_code_copy.inspect
-      puts secret_code_copy.inspect
+
+      secret_code_copy.compact!
+      user_code_copy.compact!
+      
       user_code_copy.each do |item|
         if secret_code_copy.include?(item)
           tmp_result << '-'

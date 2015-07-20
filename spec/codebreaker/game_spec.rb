@@ -91,6 +91,13 @@ module Codebreaker
         end
       end
 
+      context "when 5333" do
+        before(:each) {game.instance_variable_set(:@secret_code, [5, 3, 3, 3])}
+        it "returns +++" do
+          expect(game.check("5533")).to eq("+++")
+        end
+      end
+
       context "#hint" do
         before {game.instance_variable_set(:@secret_code, [5, 3, 2, 4])}
         it "shows only one number from code" do
