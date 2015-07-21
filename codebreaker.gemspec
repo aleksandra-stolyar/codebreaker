@@ -5,7 +5,7 @@ require 'codebreaker/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "codebreaker"
-  spec.version       = Codebreaker::VERSION
+  spec.version       = "0.1.1"
   spec.authors       = ["Aleksandra"]
   spec.email         = ["aleksandra.stolyar@gmail.com"]
   spec.summary       = %q{Codebreaker game.}
